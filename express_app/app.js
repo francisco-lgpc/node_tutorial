@@ -2,16 +2,19 @@ var express = require('express');
 
 var app = express();
 
+app.set('view engine', 'ejs');
+
 app.get('/', function(req, res){
-  res.send('Home page');
+  res.sendFile(__dirname + '/index.html' );
 });
 
 app.get('/contact', function(req, res){
-  res.send('Contact page');
+  res.sendFile(__dirname + '/contact.html');
 });
 
 app.get('/profile/:id', function(req, res){
-  res.send('You request to see profile ' + req.params.id);
+  var data = {age: 32, name: 'Joe'}
+  res.render('profile', {id: req.params.id, data: data});
 });
 
 app.listen(3000);
